@@ -1,0 +1,25 @@
+name: Deploy to Firebase Hosting
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy-website:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '12'
+      - name: Installing dependencies
+        run: yarn
+      - name: Building the project
+        run: yarn build
+      - name: Deploy to Firebase Hosting
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting --project quartz-cp
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
