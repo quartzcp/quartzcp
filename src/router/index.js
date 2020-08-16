@@ -1,19 +1,27 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+
+import PublicLayout from '../views/public/PublicLayout';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    component: PublicLayout,
+    children: [
+      { path: '', redirect: 'home' },
+      {
+        path: 'home',
+        name: 'public-home',
+        component: () => import(/* webpackChunkName: "home" */ '../views/public/Home'),
+      },
+      {
+        path: 'about',
+        name: 'public-about',
+        component: () => import(/* webpackChunkName: "about" */ '../views/public/About'),
+      },
+    ],
   },
 ];
 
