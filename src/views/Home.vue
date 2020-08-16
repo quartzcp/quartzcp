@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png"/>
+    <img alt="Vue logo" src="../assets/logo.png" />
     <h1>Quartz CP</h1>
   </div>
 </template>
