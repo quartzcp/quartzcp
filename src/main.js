@@ -8,6 +8,10 @@ import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false;
 
+// Register common components globally.
+import { SvgIcon } from '@/components/common';
+Vue.component('SvgIcon', SvgIcon)
+
 new Vue({
   router,
   store,
