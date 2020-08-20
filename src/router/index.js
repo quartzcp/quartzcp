@@ -13,6 +13,11 @@ const routes = [
     name: 'landing',
     component: () => import(/* webpackChunkName: "landing" */ '../views/Landing.vue'),
   },
+  {
+    path: '/auth/login',
+    name: 'auth-login',
+    component: () => import(/* webpackChunkName: "login" */ '../views/auth/Login.vue'),
+  },
 ];
 
 const router = new VueRouter({
