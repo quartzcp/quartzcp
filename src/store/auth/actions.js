@@ -33,6 +33,15 @@ export default {
     await dispatch('updateProfile', { name });
   },
   /**
+   * Sign out of Quartz CP.
+   *
+   * @returns {Promise<void>} Promise resolves when completed.
+   */
+  signOut: async () => {
+    // Attempt to sign out of Firebase Auth.
+    await auth.signOut();
+  },
+  /**
    * Update the user's profile document.
    *
    * @param context {vuex.ActionContext}

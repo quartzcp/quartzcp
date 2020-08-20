@@ -18,6 +18,11 @@ const routes = [
     name: 'auth-login',
     component: () => import(/* webpackChunkName: "login" */ '../views/auth/Login.vue'),
   },
+  {
+    path: '/auth/logout',
+    name: 'auth-logout',
+    component: () => import(/* webpackChunkName: "logout" */ '../views/auth/Logout.vue'),
+  },
 ];
 
 const router = new VueRouter({
