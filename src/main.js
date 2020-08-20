@@ -5,16 +5,13 @@ import router from './router';
 import store from './store';
 import './plugins/firebase';
 import vuetify from './plugins/vuetify';
+import '@/components/common';
 
 Vue.config.productionTip = false;
-
-// Register common components globally.
-import { SvgIcon } from '@/components/common';
-Vue.component('SvgIcon', SvgIcon)
 
 new Vue({
   router,
   store,
   vuetify,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app');
