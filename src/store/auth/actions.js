@@ -1,4 +1,4 @@
-import { auth } from '@/plugins/firebase';
+import { auth, db } from '@/plugins/firebase';
 
 /** @type import('vuex').ActionTree */
 export default {
@@ -29,7 +29,7 @@ export default {
 
     // Attempt to register a new account with Firebase Auth.
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
-    await commit('setFirebaseUser', user);
+    commit('setFirebaseUser', user);
     await dispatch('updateProfile', { name });
   },
   /**
@@ -49,9 +49,31 @@ export default {
    * @returns {Promise<void>} Promise resolves when completed.
    */
   updateProfile: async (context, payload) => {
-    const { name, photoURL } = payload;
+    // Ensure the user is signed in.
+    if (!auth.currentUser) {
+      throw 'Not signed in';
+    }
+    const { uid } = auth.currentUser;
 
-    // TODO: implementation
-    console.error('auth/updateProfile: not implemented');
+    /*
+     * Construct the profile data payload.
+     *
+     * We have to construct a new object since Firestore does not allow writing
+     * objects with undefined values.
+     */
+    const { name, photoURL } = payload;
+    const profile = {};
+    if (name)
+      profile.name = name;
+    if (photoURL)
+      profile.photoURL = photoURL;
+
+    // Apply the change to the profile document.
+    const profileRef = db
+      .collection('users')
+      .doc(uid)
+      .collection('profiles')
+      .doc(uid);
+    await profileRef.set(profile, { merge: true });
   },
 };
